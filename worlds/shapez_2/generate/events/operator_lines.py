@@ -37,8 +37,14 @@ def get_events(world: "Shapez2World",
         reg.locations.append(loc)
 
     for x in range(len(lines)):
+        # An operator line is usable once you own the buildings that produce its shape.
+        # When lines are item-locked, it additionally requires its unlock item. Note the
+        # building requirement applies either way: without it, the operator_levels goal
+        # (reach the last level) would be reachable at start, breaking progression logic.
         proc = tuple(event_by_processor[p] for p in lines[x])
-        if all_unlocked or all(p in world.starting_items for p in proc):
+        if not all_unlocked:
+            proc += (f"Operator line #{x + 1}",)
+        if all(p in world.starting_items for p in proc):
             world.starting_items.append(f"[ACCESS] Operator line {x+1}")
         else:
             loc = Shapez2Location(
