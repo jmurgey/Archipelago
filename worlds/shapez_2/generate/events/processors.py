@@ -94,14 +94,16 @@ def get_events(world: "Shapez2World", regions: dict[str, Region]) -> None:
         reg.locations.append(loc)
 
     if (
-        all(it in world.starting_items for it in ("Crystal Generator", "Pump", "Pipe", "Space Pipe")) and
+        all(it in world.starting_items for it in ("Crystal Generator", "Pump", "Pipe", "Space Pipe", "2nd Floor")) and
         any(it in world.starting_items for it in ("Fluid Miner", "Fluid Miner + Extension"))
     ):
         world.starting_items.append("[PROCESSOR] Crystallizer")
     else:
         loc = Shapez2Location(
             world.player, "[PROCESSOR] Crystallizer", None, reg, LocationProgressType.PRIORITY,
-            lambda state: extended_has_all(world, state, "Crystal Generator", "Pump", "Pipe", "Space Pipe") and
+            # Crystal Generator, like the Stacker, physically needs a 2nd floor to fit on the platform.
+            lambda state: extended_has_all(world, state, "Crystal Generator", "Pump", "Pipe", "Space Pipe",
+                                           "2nd Floor") and
                           extended_has_any(world, state, "Fluid Miner", "Fluid Miner + Extension")
         )
         loc.place_locked_item(Shapez2Item(
