@@ -1,6 +1,16 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 1.0.3
+
+- Fixed operator line access ignoring building requirements when "Lock operator lines" was off, which made the operator_levels goal reachable from the start and scattered key buildings behind late operator levels
+- Operator line access now also requires its unlock item (in logic) when "Lock operator lines" is on
+- Fixed the crystallizer not requiring the 2nd floor, even though the Crystal Generator (like the stacker) needs a second platform floor to be placed
+
+## Is this version compatible with older multiworld slots?
+Manual-like client yes, back to 0.99.0 (will be deprecated soon though)
+<br>UT will probably be inaccurate for worlds generated prior to 1.0.0
+
 ## 1.0.2
 
 - Fixed scenarios crashing on load in shapez 2 1.1 (initially unlocked upgrades referenced vanilla milestones that aren't defined as research upgrades)
